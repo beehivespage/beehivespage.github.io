@@ -1,0 +1,355 @@
+body {
+  background: url(/images/background.jpg);
+  min-height: 100vh;
+  background-repeat: round;
+}
+
+.header .brand-container {
+  -webkit-box-pack: justify;
+      -ms-flex-pack: justify;
+          justify-content: space-between;
+  height: 5rem;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  margin: 0 5vw;
+  border-bottom: 2px solid #F66D08;
+}
+
+.header .brand-container .logo {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+}
+
+.header .brand-container .logo img {
+  height: 3.25rem;
+}
+
+.header .brand-container .logo span {
+  font-size: 2.5rem;
+  margin-left: 0.75rem;
+  font-weight: 500;
+  color: #F66D08;
+}
+
+@media screen and (max-width: 768px) {
+  .header .brand-container .logo span {
+    font-size: 1.5rem;
+  }
+}
+
+.input-name-section {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  height: calc( 100vh - 5rem);
+}
+
+.input-name-section .input-name-content {
+  text-align: center;
+  margin: auto;
+  position: relative;
+}
+
+.input-name-section .input-name-content .input-name-background {
+  height: auto;
+  position: relative;
+  z-index: 10;
+  max-width: 500px;
+}
+
+@media screen and (max-width: 768px) {
+  .input-name-section .input-name-content .input-name-background {
+    max-width: 80vw;
+  }
+}
+
+.input-name-section .input-name-content .bee-hold-board-background {
+  position: absolute;
+  height: 10rem;
+  z-index: 8;
+  top: -4.85rem;
+  right: -2.5rem;
+  z-index: 1;
+}
+
+.input-name-section .input-name-content .bee-home-background {
+  position: fixed;
+  height: 10rem;
+  right: 0;
+  top: 50%;
+}
+
+.input-name-section .input-name-content .bee-element-1-background {
+  position: absolute;
+  height: 4rem;
+}
+
+.input-name-section .input-name-content .bee-element-1-background.bee-element-1-background-1 {
+  top: -5rem;
+  -webkit-transform: rotate(359deg) scaleX(-1);
+          transform: rotate(359deg) scaleX(-1);
+  left: 4rem;
+}
+
+.input-name-section .input-name-content .bee-element-1-background.bee-element-1-background-2 {
+  top: 3rem;
+  left: -20vw;
+  -webkit-transform: rotate(214deg);
+          transform: rotate(214deg);
+}
+
+.input-name-section .input-name-content .bee-element-1-background.bee-element-1-background-3 {
+  top: 14rem;
+  left: -20vw;
+  -webkit-transform: rotate(323deg) scaleX(-1);
+          transform: rotate(323deg) scaleX(-1);
+}
+
+.input-name-section .input-name-content .field {
+  position: absolute;
+  z-index: 13;
+  top: 50%;
+  width: 80%;
+  left: 50%;
+  -webkit-transform: translate(-50%, -50%);
+          transform: translate(-50%, -50%);
+}
+
+.input-name-section .input-name-content .field .label {
+  color: white;
+  font-size: 1.25rem;
+  font-weight: normal;
+}
+
+.input-name-section .input-name-content .field .input {
+  background: transparent;
+  text-align: center;
+  border: none;
+  -webkit-box-shadow: none;
+          box-shadow: none;
+  border-bottom: 2px solid #F66D08;
+  border-radius: 0;
+  color: white;
+  padding: 0;
+  font-size: 1.5rem;
+}
+
+.input-name-section .input-name-content .field .tabs-container {
+  margin-bottom: 0.5rem;
+  margin-top: -1rem;
+}
+
+.input-name-section .input-name-content .field .tabs-container .button {
+  padding: 0 1rem;
+  font-size: 1.25rem !important;
+  height: 1.75em;
+  border-radius: 8px !important;
+  background: transparent;
+  color: white;
+  border: none;
+  margin: 0.5rem;
+}
+
+.input-name-section .input-name-content .field .tabs-container .button.is-primary, .input-name-section .input-name-content .field .tabs-container .button:hover {
+  background: #F66D08;
+}
+
+@media screen and (max-width: 768px) {
+  .input-name-section .input-name-content .field .tabs-container {
+    position: fixed;
+    top: -100%;
+    width: 100%;
+  }
+  .input-name-section .input-name-content .field .tabs-container .button {
+    background: #fca945;
+  }
+}
+
+.input-name-section .input-name-content .field .message {
+  background: transparent;
+  color: white;
+  margin: 0;
+}
+
+.input-name-section .input-name-content .field .counter {
+  font-size: 8rem;
+  color: white;
+  line-height: 1;
+  margin-bottom: 1rem;
+  cursor: pointer;
+}
+
+@media screen and (max-width: 768px) {
+  .input-name-section .input-name-content .field .counter {
+    font-size: 6rem;
+  }
+}
+
+@media screen and (max-width: 768px) {
+  .input-name-section .input-name-content .field .command-button {
+    position: fixed;
+    bottom: -100%;
+    left: 50%;
+    -webkit-transform: translateX(-50%);
+            transform: translateX(-50%);
+  }
+}
+
+.start-button, .give-up-button, .time-period-button {
+  border: none;
+  -webkit-box-shadow: rgba(0, 0, 0, 0.15) 2.4px 2.4px 3.2px;
+          box-shadow: rgba(0, 0, 0, 0.15) 2.4px 2.4px 3.2px;
+  border-radius: 10px;
+  padding: 0 3rem;
+  color: #F66D08;
+}
+
+.start-button:hover, .give-up-button:hover, .time-period-button:hover {
+  -webkit-transition: all .3s;
+  transition: all .3s;
+  -webkit-transform: scale(1.1);
+          transform: scale(1.1);
+  -webkit-box-shadow: 0 7px 8px 0 #ffbd88 !important;
+          box-shadow: 0 7px 8px 0 #ffbd88 !important;
+}
+
+.score-container {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+}
+
+.score-container > div {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-align: end;
+      -ms-flex-align: end;
+          align-items: end;
+}
+
+.score-container > div:first-child {
+  margin-right: 1rem;
+}
+
+.score-container > div span {
+  font-size: 1.25rem;
+  color: #F66D08;
+  margin-right: 0.25rem;
+}
+
+.score-container > div img {
+  height: 2.5rem;
+}
+
+.score-container > div img[src="/images/live_bee.png"] {
+  -webkit-transform: scaleX(-1);
+          transform: scaleX(-1);
+}
+
+.todo-list-section {
+  padding-top: 5rem;
+  padding-bottom: 10rem;
+  max-width: 500px;
+  margin: auto;
+}
+
+@media screen and (max-width: 768px) {
+  .todo-list-section {
+    max-width: 80vw;
+  }
+}
+
+.todo-list-section .title {
+  text-align: center;
+  font-size: 2.75rem;
+  color: #F66D08;
+  position: relative;
+  z-index: 10;
+}
+
+.todo-list-section .todo-list-container .input, .todo-list-section .todo-list-container .button, .todo-list-section .todo-list-container .select, .todo-list-section .todo-list-container .select select {
+  border: none;
+  border-radius: 0;
+  background: transparent;
+  -webkit-box-shadow: none;
+          box-shadow: none;
+  color: white;
+}
+
+.todo-list-section .todo-list-container .todo-list-input-container {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: justify;
+      -ms-flex-pack: justify;
+          justify-content: space-between;
+  margin: 3rem 0 3rem 3rem;
+}
+
+.todo-list-section .todo-list-container .todo-list-input-container .todo-list-add-task-container {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-flex: 2;
+      -ms-flex: 2;
+          flex: 2;
+  margin-right: 1rem;
+}
+
+.todo-list-section .todo-list-container .todo-list-add-task-container, .todo-list-section .todo-list-container .todo-list-filter-container, .todo-list-section .todo-list-container .todo-list-info {
+  background: url(/images/clock_background.png);
+  background-position: right;
+  position: relative;
+  z-index: 10;
+}
+
+.todo-list-section .todo-list-container .todo-list-filter-container .select::after {
+  border-color: white;
+}
+
+.todo-list-section .todo-list-container .todo-list-task-container .todo-list-task-item {
+  position: relative;
+  z-index: 10;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  margin-bottom: 1rem;
+}
+
+.todo-list-section .todo-list-container .todo-list-task-container .todo-list-task-item img {
+  height: 2.5rem;
+  margin-right: 0.5rem;
+}
+
+.todo-list-section .todo-list-container .todo-list-task-container .todo-list-task-item .todo-list-info {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-flex: 2;
+      -ms-flex: 2;
+          flex: 2;
+}
+
+.todo-list-section .todo-list-container .todo-list-task-container .todo-list-task-item[data-status="finished"] .todo-list-name {
+  text-decoration: line-through;
+}
+
+.todo-list-section .todo-list-container .todo-list-task-container .todo-list-task-item[data-status="finished"] .complete-button .icon svg {
+  border-radius: 50%;
+  color: white;
+  background: #78c44b;
+}
+
+.modal .modal-card-body {
+  background: url(/images/clock_background.png);
+}
+/*# sourceMappingURL=style.css.map */

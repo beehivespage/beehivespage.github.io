@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en" class="">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Beehives</title>
+    <link rel="icon" type="image/png" href="/images/logo.png" />
+    <link rel="stylesheet" href="/css/style1.css">
+    <link rel="stylesheet" href="/css/style.css">
+    <script>
+        var shinobi = {};
+    </script>
+    <script src="/js/all.min.js"></script>
+    <script src="/js/config.js"></script>
+    <script src="/js/init.js"></script>
+    <script src="/js/util.js"></script>
+    <script src="/js/indexrender.js"></script>
+
+</head>
+
+<body>
+    <main class="main-section">
+
+        <header class="header">
+            <div class="brand-container">
+                <a href="#" class="logo">
+                    <img src="/images/logo.png">
+                    <span>Beehives</span>
+                </a>
+            </div>
+        </header>
+
+        <section class="input-name-section">
+            <div class="input-name-content">
+                <img class="input-name-background"
+                    src="/images/clock_background.png">
+
+                <img class="bee-hold-board-background"
+                    src="/images/bee_hold_board.png">
+
+                <img class="bee-home-background" src="/images/bee_home.png">
+
+                <img class="bee-element-1-background bee-element-1-background-1"
+                    src="/images/element_1.png">
+                <img class="bee-element-1-background bee-element-1-background-2"
+                    src="/images/element_1.png"> <img
+                    class="bee-element-1-background bee-element-1-background-3"
+                    src="/images/element_1.png">
+                <div class="field">
+                    <label class="label">
+                        What is your name ?
+                    </label>
+                    <div class="control">
+                        <input id="nameInput" type="text" class="input"
+                            autofocus="true">
+                    </div>
+                </div>
+
+
+            </div>
+        </section>
+    </main>
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            indexrender.init();
+
+        });
+    </script>
+</body>
+
+</html>

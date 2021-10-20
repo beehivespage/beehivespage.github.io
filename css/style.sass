@@ -1,0 +1,223 @@
+@import "mixins"
+
+
+$header-height: 5rem
+$logo-height: 3.25rem
+$primary: #F66D08
+
+body
+    background: url(/images/background.jpg)
+    min-height: 100vh
+    background-repeat: round
+.header
+    .brand-container
+        justify-content: space-between
+        height: $header-height
+        display: flex
+        align-items: center
+        margin: 0 5vw
+        border-bottom: 2px solid $primary
+        .logo
+            display: flex
+            align-items: center
+            img
+                height: $logo-height
+            span
+                font-size: 2.5rem
+                margin-left: 0.75rem
+                font-weight: 500
+                color: $primary
+                +mobile
+                    font-size: 1.5rem
+
+=container-max-width
+    max-width: 500px
+    +mobile
+        max-width: 80vw
+.input-name-section
+    display: flex
+    height: calc( 100vh - #{$header-height} )
+    .input-name-content
+        text-align: center
+        margin: auto
+        position: relative
+        .input-name-background
+            height: auto
+            position: relative
+            z-index: 10
+            +container-max-width
+        .bee-hold-board-background
+            position: absolute
+            height: 10rem
+            z-index: 8
+            top: -4.85rem
+            right: -2.5rem
+            z-index: 1
+        .bee-home-background
+            position: fixed
+            height: 10rem
+            right: 0
+            top: 50%
+        .bee-element-1-background
+            position: absolute
+            height: 4rem
+            &.bee-element-1-background-1
+                top: -5rem
+                transform: rotate(359deg) scaleX(-1)
+                left: 4rem
+            &.bee-element-1-background-2
+                top: 3rem
+                left: -20vw
+                transform: rotate(214deg)
+            &.bee-element-1-background-3
+                top: 14rem
+                left: -20vw
+                transform: rotate(323deg) scaleX(-1)
+        .field
+            position: absolute
+            z-index: 13
+            top: 50%
+            width: 80%
+            left: 50%
+            transform: translate(-50%, -50%)
+            .label
+                color: white
+                font-size: 1.25rem
+                font-weight: normal
+            .input
+                background: transparent
+                text-align: center
+                border: none
+                box-shadow: none
+                border-bottom: 2px solid $primary
+                border-radius: 0
+                color: white
+                padding: 0
+                font-size: 1.5rem
+            .tabs-container
+                margin-bottom: 0.5rem
+                margin-top: -1rem
+                .button
+                    padding: 0 1rem
+                    font-size: 1.25rem !important
+                    height: 1.75em
+                    border-radius: 8px !important
+                    background: transparent
+                    color: white
+                    border: none
+                    margin: 0.5rem
+                    &.is-primary,&:hover
+                        background: $primary
+                +mobile
+                    position: fixed
+                    top: -100%
+                    width: 100%
+                    .button
+                        background: #fca945
+            .message
+                background: transparent
+                color: white
+                margin: 0
+            .counter
+                font-size: 8rem
+                color: white
+                line-height: 1
+                margin-bottom: 1rem
+                cursor: pointer
+                +mobile
+                    font-size: 6rem
+            .command-button
+                +mobile
+                    position: fixed
+                    bottom: -100%
+                    left: 50%
+                    transform: translateX(-50%)
+
+.start-button,.give-up-button, .time-period-button
+    border: none
+    box-shadow: rgba(0, 0, 0,0.15) 2.4px 2.4px 3.2px
+    border-radius: 10px
+    padding: 0 3rem
+    color: $primary
+    &:hover
+        +animation
+        transform: scale(1.1)
+        box-shadow: 0 7px 8px 0 #ffbd88!important
+
+.score-container
+    display: flex
+    > div
+        display: flex
+        align-items: end
+        &:first-child
+            margin-right: 1rem
+        span
+            font-size: 1.25rem
+            color: $primary
+            margin-right: 0.25rem
+        img
+            height: 2.5rem
+            &[src="/images/live_bee.png"]
+                transform: scaleX(-1)
+
+.todo-list-section
+    padding-top: 5rem
+    padding-bottom: 10rem
+
+    +container-max-width
+    margin: auto
+    .title
+        text-align: center
+        font-size: 2.75rem
+        color: #F66D08
+        position: relative
+        z-index: 10
+    .todo-list-container
+        .input,.button, .select, .select select
+            border: none
+            border-radius: 0
+            background: transparent
+            box-shadow: none
+            color: white
+        .todo-list-input-container
+            display: flex
+            justify-content: space-between
+            margin: 3rem 0 3rem 3rem
+
+            .todo-list-add-task-container
+                display: flex
+                flex: 2
+                margin-right: 1rem
+        .todo-list-add-task-container,.todo-list-filter-container, .todo-list-info
+            background: url(/images/clock_background.png)
+            background-position: right
+            position: relative
+            z-index: 10
+        .todo-list-filter-container
+            .select
+                &::after
+                    border-color: white
+        .todo-list-task-container
+            .todo-list-task-item
+                position: relative
+                z-index: 10
+                display: flex
+                margin-bottom: 1rem
+                img
+                    height: 2.5rem
+                    margin-right: 0.5rem
+                .todo-list-info
+                    display: flex
+                    flex: 2
+                &[data-status="finished"]
+                    .todo-list-name
+                        text-decoration: line-through
+                    .complete-button .icon svg
+                        border-radius: 50%
+                        color: white
+                        background: #78c44b
+
+
+.modal
+    .modal-card-body
+        background: url(/images/clock_background.png)

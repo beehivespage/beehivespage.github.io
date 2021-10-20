@@ -1,0 +1,168 @@
+<!DOCTYPE html>
+<html lang="en" class="">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Beehives</title>
+    <link rel="icon" type="image/png" href="/images/logo.png" />
+    <link rel="stylesheet" href="/css/style1.css">
+    <link rel="stylesheet" href="/css/style.css">
+    <link rel="stylesheet" href="/css/tooltip.css">
+    <script>
+        var shinobi = {};
+    </script>
+    <script src="/js/all.min.js"></script>
+    <script src="/js/config.js"></script>
+    <script src="/js/init.js"></script>
+    <script src="/js/util.js"></script>
+    <script src="/js/initbulma.js"></script>
+
+    <script src="/js/indexrender.js"></script>
+    <script src="/js/homerender.js"></script>
+
+</head>
+
+<body>
+    <main class="main-section">
+
+        <header class="header">
+            <div class="brand-container">
+                <a href="#" class="logo">
+                    <img src="/images/logo.png">
+                    <span>Beehives</span>
+                </a>
+                <div id="scoreContainer" class="score-container">
+                    <div class="live-bee-container">
+                        <span class="bee-value">0</span>
+                        <img class="bee-icon" src="/images/live_bee.png">
+                    </div>
+                    <div class="die-bee-container">
+                        <span class="bee-value">0</span>
+                        <img class="bee-icon" src="/images/die_bee.png">
+                    </div>
+                </div>
+            </div>
+
+        </header>
+
+        <section class="input-name-section">
+            <div class="input-name-content">
+                <img class="input-name-background"
+                    src="/images/clock_background.png">
+
+                <img class="bee-hold-board-background"
+                    src="/images/bee_hold_board.png">
+
+                <img class="bee-home-background" src="/images/bee_home.png">
+
+                <img class="bee-element-1-background bee-element-1-background-1"
+                    src="/images/element_1.png">
+                <img class="bee-element-1-background bee-element-1-background-2"
+                    src="/images/element_1.png"> <img
+                    class="bee-element-1-background bee-element-1-background-3"
+                    src="/images/element_1.png">
+
+                <div class="field">
+                    <div class="buttons tabs-container is-centered are-small">
+                        <a class="button is-primary">beefocus</a>
+                        <a class="button ">beebreak</a>
+                    </div>
+                    <div id="quoteMessage" class="message"></div>
+                    <div id="counter" class="counter">
+                        <span class="minute">60</span>:<span
+                            class="second">00</span>
+                    </div>
+                    <div class="buttons command-button is-centered are-large">
+                        <a class="button start-button">START</a>
+                        <a class="button give-up-button is-hidden">Give up</a>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section class="todo-list-section">
+            <p class="title"></p>
+            <div class="todo-list-container">
+                <div class="todo-list-input-container">
+                    <div id="addTaskContainer"
+                        class="todo-list-add-task-container">
+                        <input type="text" class="input" placeholder="Add task">
+                        <a class="button">
+                            <span class="icon">
+                                <i class="fal fa-lg fa-plus-circle"></i>
+                            </span>
+                        </a>
+                    </div>
+                    <div class="todo-list-filter-container">
+                        <div class="select">
+                            <select id="filterTask" select>
+                                <option value="all">All</option>
+                                <option value="finished">Finished</option>
+                                <option value="unfinished">Unfinished</option>
+                            </select>
+                        </div>
+                    </div>
+                </div>
+                <div id="taskListContainer" class="todo-list-task-container">
+
+                </div>
+            </div>
+        </section>
+
+    </main>
+    <div id="chooseMaxTimeModal" class="modal">
+        <div class="modal-background"></div>
+        <div class="modal-card">
+            <header class="modal-card-head">
+                <p class="modal-card-title">Choose time period</p>
+                <button class="delete" aria-label="close"></button>
+            </header>
+            <section class="modal-card-body">
+                <div class="columns is-multiline has-text-centered">
+                    <div class="column is-6"><a
+                            class="button is-large time-period-button"
+                            data-value="30">
+                            30 Minutes
+                        </a></div>
+                    <div class="column is-6"><a
+                            class="button is-large time-period-button"
+                            data-value="60">
+                            60 Minutes
+                        </a></div>
+                    <div class="column is-6"><a
+                            class="button is-large time-period-button"
+                            data-value="90">
+                            90 Minutes
+                        </a></div>
+                    <div class="column is-6"><a
+                            class="button is-large time-period-button"
+                            data-value="120">
+                            120 Minutes
+                        </a></div>
+                    <div class="column is-6"><a
+                            class="button is-large time-period-button"
+                            data-value="150">
+                            150 Minutes
+                        </a></div>
+                    <div class="column is-6"><a
+                            class="button is-large time-period-button"
+                            data-value="180">
+                            180 Minutes
+                        </a></div>
+                </div>
+            </section>
+        </div>
+    </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            shinobi.initbulma.build()
+            homerender.init();
+        });
+    </script>
+
+</body>
+
+</html>
