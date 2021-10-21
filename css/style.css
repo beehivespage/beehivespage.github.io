@@ -1,7 +1,53 @@
+@-webkit-keyframes fadeOut {
+  0% {
+    opacity: 1;
+  }
+  100% {
+    opacity: 0;
+  }
+}
+
+@keyframes fadeOut {
+  0% {
+    opacity: 1;
+  }
+  100% {
+    opacity: 0;
+  }
+}
+
+@-webkit-keyframes fadeIn {
+  0% {
+    opacity: 0;
+  }
+  100% {
+    opacity: 1;
+  }
+}
+
+@keyframes fadeIn {
+  0% {
+    opacity: 0;
+  }
+  100% {
+    opacity: 1;
+  }
+}
+
 body {
   background: url(/images/background.jpg);
   min-height: 100vh;
   background-repeat: round;
+}
+
+.main-section.is-fade-in {
+  -webkit-animation: fadeIn 2s;
+          animation: fadeIn 2s;
+}
+
+.main-section.is-fade-out {
+  -webkit-animation: fadeOut 2s;
+          animation: fadeOut 2s;
 }
 
 .header .brand-container {
@@ -80,13 +126,6 @@ body {
   z-index: 1;
 }
 
-.input-name-section .input-name-content .bee-home-background {
-  position: fixed;
-  height: 10rem;
-  right: 0;
-  top: 50%;
-}
-
 .input-name-section .input-name-content .bee-element-1-background {
   position: absolute;
   height: 4rem;
@@ -129,7 +168,7 @@ body {
   font-weight: normal;
 }
 
-.input-name-section .input-name-content .field .input {
+.input-name-section .input-name-content .field .input, .input-name-section .input-name-content .field .textarea {
   background: transparent;
   text-align: center;
   border: none;
@@ -203,7 +242,11 @@ body {
   }
 }
 
-.start-button, .give-up-button, .time-period-button {
+.input-name-section .input-name-content .field[data-tab="beebreak"] > .message {
+  visibility: hidden;
+}
+
+.start-button, .give-up-button, .cancel-button, .time-period-button, .logout-button {
   border: none;
   -webkit-box-shadow: rgba(0, 0, 0, 0.15) 2.4px 2.4px 3.2px;
           box-shadow: rgba(0, 0, 0, 0.15) 2.4px 2.4px 3.2px;
@@ -212,13 +255,20 @@ body {
   color: #F66D08;
 }
 
-.start-button:hover, .give-up-button:hover, .time-period-button:hover {
+.start-button:hover, .give-up-button:hover, .cancel-button:hover, .time-period-button:hover, .logout-button:hover {
   -webkit-transition: all .3s;
   transition: all .3s;
   -webkit-transform: scale(1.1);
           transform: scale(1.1);
   -webkit-box-shadow: 0 7px 8px 0 #ffbd88 !important;
           box-shadow: 0 7px 8px 0 #ffbd88 !important;
+}
+
+.bee-home-background {
+  position: absolute;
+  height: 10rem;
+  right: 0;
+  top: 50%;
 }
 
 .score-container {
@@ -351,5 +401,109 @@ body {
 
 .modal .modal-card-body {
   background: url(/images/clock_background.png);
+}
+
+.success-score-board {
+  position: absolute;
+  z-index: 100;
+  background: white;
+  top: 50%;
+  left: 50%;
+  -webkit-transform: translate(-50%, -50%);
+          transform: translate(-50%, -50%);
+  padding: 3rem 2rem;
+  border-radius: 8px;
+  width: 300px;
+}
+
+.success-score-board .title {
+  font-weight: 400;
+}
+
+.success-score-board .score {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  -webkit-box-align: start;
+      -ms-flex-align: start;
+          align-items: flex-start;
+  margin-bottom: 2rem;
+}
+
+.success-score-board .score img {
+  height: 4rem;
+}
+
+.success-score-board .score .value {
+  font-size: 3rem;
+  margin-left: 1rem;
+}
+
+.success-score-board .button {
+  width: 80%;
+  background: #F66D08;
+  -webkit-box-shadow: rgba(0, 0, 0, 0.15) 2.4px 2.4px 3.2px;
+          box-shadow: rgba(0, 0, 0, 0.15) 2.4px 2.4px 3.2px;
+  color: white;
+  background: #f99a2d;
+  border: none;
+}
+
+@-webkit-keyframes dynamicBee {
+  0% {
+    top: 50%;
+    right: 45%;
+  }
+  100% {
+    top: 60%;
+    right: 4rem;
+  }
+}
+
+@keyframes dynamicBee {
+  0% {
+    top: 50%;
+    right: 45%;
+  }
+  100% {
+    top: 60%;
+    right: 4rem;
+  }
+}
+
+@-webkit-keyframes opacity {
+  0% {
+    opacity: 1;
+  }
+  100% {
+    opacity: 0;
+  }
+}
+
+@keyframes opacity {
+  0% {
+    opacity: 1;
+  }
+  100% {
+    opacity: 0;
+  }
+}
+
+.dynamic-bee {
+  height: 4rem;
+  position: absolute;
+  z-index: 100000;
+  top: 50%;
+  right: 45%;
+  display: none;
+}
+
+.dynamic-bee.is-active {
+  display: block;
+  -webkit-animation: dynamicBee 60s ease-in forwards, opacity 2s ease-in 60s forwards;
+          animation: dynamicBee 60s ease-in forwards, opacity 2s ease-in 60s forwards;
 }
 /*# sourceMappingURL=style.css.map */

@@ -21,11 +21,58 @@
 
     <script src="/js/indexrender.js"></script>
     <script src="/js/homerender.js"></script>
+    <style>
+        @-webkit-keyframes fadeOut {
+            0% {
+                opacity: 1;
+            }
+
+            100% {
+                opacity: 0;
+            }
+        }
+
+        @keyframes fadeOut {
+            0% {
+                opacity: 1;
+            }
+
+            100% {
+                opacity: 0;
+            }
+        }
+
+        @-webkit-keyframes fadeIn {
+            0% {
+                opacity: 0;
+            }
+
+            100% {
+                opacity: 1;
+            }
+        }
+
+        @keyframes fadeIn {
+            0% {
+                opacity: 0;
+            }
+
+            100% {
+                opacity: 1;
+            }
+        }
+
+        .main-section.is-fade-in {
+            -webkit-animation: fadeIn 2s;
+            animation: fadeIn 2s;
+        }
+    </style>
 
 </head>
 
 <body>
-    <main class="main-section">
+    <main class="main-section is-fade-in">
+
 
         <header class="header">
             <div class="brand-container">
@@ -46,16 +93,27 @@
             </div>
 
         </header>
-
+        <img class="bee-home-background" src="/images/bee_home.png">
+        <img class="dynamic-bee" src="/images/dynamic_bee.png">
         <section class="input-name-section">
             <div class="input-name-content">
+                <div class="success-score-board card is-hidden">
+                    <div class=" title"> You've Got</div>
+                    <div class="score">
+                        <img src="/images/live_bee.png">
+                        <span class="value"></span>
+                    </div>
+                    <div class="buttons is-centered">
+                        <a id="successSessionButton" class="button">OK</a>
+                        </divid>
+                    </div>
+                </div>
                 <img class="input-name-background"
                     src="/images/clock_background.png">
 
                 <img class="bee-hold-board-background"
                     src="/images/bee_hold_board.png">
 
-                <img class="bee-home-background" src="/images/bee_home.png">
 
                 <img class="bee-element-1-background bee-element-1-background-1"
                     src="/images/element_1.png">
@@ -64,10 +122,13 @@
                     class="bee-element-1-background bee-element-1-background-3"
                     src="/images/element_1.png">
 
-                <div class="field">
-                    <div class="buttons tabs-container is-centered are-small">
-                        <a class="button is-primary">beefocus</a>
-                        <a class="button ">beebreak</a>
+                <div class="field bee-counter-container"
+                    data-tab="beefocus">
+                    <div
+                        class="home-tab-container buttons tabs-container is-centered are-small">
+                        <a class="button is-primary"
+                            data-tab="beefocus">beefocus</a>
+                        <a class="button " data-tab="beebreak">beebreak</a>
                     </div>
                     <div id="quoteMessage" class="message"></div>
                     <div id="counter" class="counter">
@@ -76,7 +137,9 @@
                     </div>
                     <div class="buttons command-button is-centered are-large">
                         <a class="button start-button">START</a>
-                        <a class="button give-up-button is-hidden">Give up</a>
+                        <a class="button cancel-button is-hidden">Cancel</a>
+                        <a class="button give-up-button is-hidden">Give
+                            up</a>
                     </div>
                 </div>
             </div>
@@ -105,8 +168,15 @@
                         </div>
                     </div>
                 </div>
-                <div id="taskListContainer" class="todo-list-task-container">
+                <div id="taskListContainer"
+                    class="todo-list-task-container pb-6">
 
+                </div>
+
+            </div>
+            <div class="level mt-6">
+                <div class="level-item">
+                    <a class="logout-button button is-large">LOG OUT</a>
                 </div>
             </div>
         </section>
@@ -155,6 +225,7 @@
             </section>
         </div>
     </div>
+
 
     <script>
         document.addEventListener('DOMContentLoaded', function () {

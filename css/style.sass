@@ -5,10 +5,27 @@ $header-height: 5rem
 $logo-height: 3.25rem
 $primary: #F66D08
 
+@keyframes fadeOut
+    0%
+        opacity: 1
+    100%
+        opacity: 0
+
+@keyframes fadeIn
+    0%
+        opacity: 0
+    100%
+        opacity: 1
+
 body
     background: url(/images/background.jpg)
     min-height: 100vh
     background-repeat: round
+.main-section
+    &.is-fade-in
+        animation: fadeIn 2s
+    &.is-fade-out
+        animation: fadeOut 2s
 .header
     .brand-container
         justify-content: space-between
@@ -53,11 +70,6 @@ body
             top: -4.85rem
             right: -2.5rem
             z-index: 1
-        .bee-home-background
-            position: fixed
-            height: 10rem
-            right: 0
-            top: 50%
         .bee-element-1-background
             position: absolute
             height: 4rem
@@ -84,7 +96,7 @@ body
                 color: white
                 font-size: 1.25rem
                 font-weight: normal
-            .input
+            .input, .textarea
                 background: transparent
                 text-align: center
                 border: none
@@ -132,8 +144,11 @@ body
                     bottom: -100%
                     left: 50%
                     transform: translateX(-50%)
+            &[data-tab="beebreak"]
+                >.message
+                    visibility: hidden
 
-.start-button,.give-up-button, .time-period-button
+.start-button,.give-up-button,.cancel-button, .time-period-button, .logout-button,
     border: none
     box-shadow: rgba(0, 0, 0,0.15) 2.4px 2.4px 3.2px
     border-radius: 10px
@@ -143,6 +158,12 @@ body
         +animation
         transform: scale(1.1)
         box-shadow: 0 7px 8px 0 #ffbd88!important
+
+.bee-home-background
+    position: absolute
+    height: 10rem
+    right: 0
+    top: 50%
 
 .score-container
     display: flex
@@ -221,3 +242,61 @@ body
 .modal
     .modal-card-body
         background: url(/images/clock_background.png)
+
+
+.success-score-board
+    position: absolute
+    z-index: 100
+    background: white
+    top: 50%
+    left: 50%
+    transform: translate(-50%, -50%)
+    padding: 3rem 2rem
+    border-radius: 8px
+    width: 300px
+    .title
+        font-weight: 400
+    .score
+        display: flex
+        justify-content: center
+        align-items: flex-start
+        margin-bottom: 2rem
+        img
+            height: 4rem
+        .value
+            font-size: 3rem
+            margin-left: 1rem
+    .button
+        width: 80%
+        background: $primary
+        box-shadow: rgba(0, 0, 0,0.15) 2.4px 2.4px 3.2px
+        color: white
+        background: #f99a2d
+        border: none
+
+
+@keyframes dynamicBee
+    0%
+        top: 50%
+        right: 45%
+
+    100%
+        top: 60%
+        right: 4rem
+
+@keyframes opacity
+    0%
+        opacity: 1
+    100%
+        opacity: 0
+
+.dynamic-bee
+    height: 4rem
+    position: absolute
+    z-index: 100000
+    top: 50%
+    right: 45%
+    display: none
+    &.is-active
+        display: block
+        animation: dynamicBee 60s ease-in forwards, opacity 2s ease-in 60s forwards

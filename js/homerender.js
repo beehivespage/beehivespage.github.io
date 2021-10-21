@@ -11,9 +11,14 @@ var homerender = {
     taskList: [],
     dieBee: 0,
     liveBee: 0,
+    running: false,
+    tab: 'beefocus',
+    dynamicBeeIntervalTime: 60 * 1000,
     init: function () {
         homerender.addEventChangeQuote();
         homerender.addEventStartButton();
+        homerender.addEventCancelButton();
+        homerender.addEventLogoutButton();
         homerender.addEventGiveUpButton();
         homerender.loadUserName();
         homerender.renderTaskList();
@@ -21,6 +26,44 @@ var homerender = {
         homerender.addEventFilterTask();
         homerender.renderBee();
         homerender.addEventChooseTimePeriod();
+        homerender.addEventChangeTab();
+
+    },
+
+    addEventLogoutButton: function () {
+        var button = document.querySelector('.logout-button');
+        button.onclick = function () {
+            homerender.logout();
+        }
+    },
+    addEventChangeTab: function () {
+        var tabs = document.querySelectorAll('.tabs-container .button[data-tab]');
+        var container = document.querySelector('.tabs-container').parentElement;
+        tabs.forEach(function (tab) {
+            tab.onclick = function () {
+                if (container.dataset.tab != tab.dataset.tab) {
+
+                    var isChangeTab = false;
+
+                    if (homerender.tab == 'beefocus' && homerender.running) {
+                        isChangeTab = confirm('You will give up if you switch to beebreak!');
+                    } else {
+                        isChangeTab = true;
+                    }
+                    if (isChangeTab) {
+                        container.querySelector('.give-up-button').click();
+                        container.setAttribute('data-tab', tab.dataset.tab);
+                        tabs.forEach(function (tabItem) {
+                            if (tab == tabItem) {
+                                tabItem.classList.add('is-primary');
+                            } else {
+                                tabItem.classList.remove('is-primary');
+                            }
+                        })
+                    }
+                }
+            }
+        })
 
     },
 
@@ -28,7 +71,9 @@ var homerender = {
         var container = document.getElementById('counter');
         var modal = document.getElementById('chooseMaxTimeModal');
         container.onclick = function () {
-            modal.classList.add('is-active');
+            if (!homerender.running) {
+                modal.classList.add('is-active');
+            }
         }
 
         var options = modal.querySelectorAll('.time-period-button');
@@ -63,6 +108,28 @@ var homerender = {
 
     beeType: {
         die: 'die', live: 'live'
+    },
+
+    getTotalFocusTime: function () {
+        var key = 'totalFocusTime';
+        let count = (localStorage.hasOwnProperty(key)) ? JSON.parse(localStorage.getItem(key)) : {};
+        homerender[key] = count;
+        return count;
+    },
+
+    increaseTotalFocusTime: function () {
+        var value = homerender.increaseBeeFocusTime;
+        var key = 'totalFocusTime';
+        var totalFocusTime = homerender.getTotalFocusTime();
+        var currentDate = shinobi.util.getCurrentDate();
+        if (totalFocusTime.hasOwnProperty(currentDate)) {
+            totalFocusTime[currentDate] += Number(value);
+        } else {
+            totalFocusTime[currentDate] = Number(value);
+        }
+
+        homerender[key] = totalFocusTime;
+        localStorage.setItem(key, JSON.stringify(totalFocusTime));
     },
 
     getBee: function (type) {
@@ -219,7 +286,14 @@ var homerender = {
         }
     },
 
+    playNotification: function () {
+        var audio = new Audio('/sound/notification.mp3');
+        audio.play();
+    },
+
     createInterval: function (maxFocusTime) {
+        var beeCounterContainer = document.querySelector('.bee-counter-container');
+        homerender.tab = beeCounterContainer.dataset.tab;
         let start = document.querySelector('.start-button');
         let giveUp = document.querySelector('.give-up-button');
 
@@ -229,30 +303,57 @@ var homerender = {
         homerender.renderCounter();
         if (maxFocusTime == 0) {
             clearInterval(homerender.interval);
+            homerender.running = false;
         } else {
+            homerender.running = true;
             homerender.interval = setInterval(function () {
                 if (homerender.currentFocusTime < tick) {
+                    homerender.running = false;
                     clearInterval(homerender.interval);
-
                     start.classList.remove('is-hidden');
                     giveUp.classList.add('is-hidden');
+                    if (homerender.tab == 'beefocus') {
+                        homerender.successSession();
+                    }
                 } else {
                     homerender.currentFocusTime -= tick;
                     homerender.renderCounter();
-
                     if (homerender.currentFocusTime < homerender.maxFocusTime &&
-                        homerender.currentFocusTime % homerender.increaseBeeFocusTime == 0) {
+                        homerender.currentFocusTime % homerender.increaseBeeFocusTime == 0 &&
+                        homerender.tab == 'beefocus') {
                         homerender.increaseBee();
                     }
                 }
-            }, 1000);
+            }, 1);
+        }
+        homerender.addEventChangeQuote();
+    },
+
+    successSession: function () {
+        homerender.playNotification();
+        homerender.addEventChangeQuote();
+        document.querySelector('.button[data-tab="beebreak"]').click();
+        var modal = document.getElementsByClassName('success-score-board')[0];
+        modal.classList.remove('is-hidden');
+        var value = modal.querySelector('.score .value');
+        value.innerHTML = homerender.maxFocusTime / homerender.increaseBeeFocusTime;
+        var dynamicBee = document.querySelector('.dynamic-bee');
+        var button = modal.querySelector('.button');
+        button.onclick = function () {
+            modal.classList.add('is-hidden');
+            dynamicBee.classList.add('is-active');
+            clearTimeout(homerender.dynamicBeeInterval);
+            homerender.dynamicBeeInterval = setTimeout(function () {
+                dynamicBee.classList.remove('is-active');
+            }, 5000 * homerender.dynamicBeeIntervalTime);
+
         }
 
     },
-
     increaseBee: function () {
         var live = this.getBee(this.beeType.live);
         this.setBee(this.beeType.live, live + this.increaseBeeCount);
+        homerender.increaseTotalFocusTime()
     },
     decreaseBee: function () {
         var die = this.getBee(this.beeType.die);
@@ -283,16 +384,59 @@ var homerender = {
         var userName = localStorage.getItem('username');
         if (userName) {
             title.innerHTML = `${userName.split(' ').at(-1)}'s todo list`;
+        } else {
+            homerender.logout();
         }
+    },
+
+    logout: function () {
+        localStorage.clear();
+        window.location.href = '/';
     },
 
     addEventStartButton: function () {
         let start = document.querySelector('.start-button');
+        let cancel = document.querySelector('.cancel-button');
         let giveUp = document.querySelector('.give-up-button');
+        let cancelInterval = 10 * 1000;
         start.onclick = function () {
+            let cancelCurrentInterval = cancelInterval;
             start.classList.add('is-hidden');
-            giveUp.classList.remove('is-hidden');
+            cancel.classList.remove('is-hidden');
+            cancel.innerHTML = `Cancel (${cancelCurrentInterval / 1000})`;
+            clearInterval(homerender.cancelInterval);
+            clearTimeout(homerender.cancelTimeout);
+            homerender.cancelInterval = setInterval(function () {
+                if (cancelCurrentInterval == 0) {
+                    clearInterval(homerender.cancelInterval);
+                } else {
+                    cancelCurrentInterval -= 1000;
+                    cancel.innerHTML = `Cancel (${cancelCurrentInterval / 1000})`;
+                }
+
+            }, 1000);
+
+            homerender.cancelTimeout = setTimeout(function () {
+                cancel.classList.add('is-hidden');
+                giveUp.classList.remove('is-hidden');
+            }, cancelInterval);
             homerender.createInterval((homerender.maxFocusTime == 0) ? 60 * 60 * 1000 : homerender.maxFocusTime);
+        }
+    },
+
+    addEventCancelButton: function () {
+        let start = document.querySelector('.start-button');
+        let cancel = document.querySelector('.cancel-button');
+        let giveUp = document.querySelector('.give-up-button');
+        cancel.onclick = function () {
+            cancel.classList.add('is-hidden');
+            start.classList.remove('is-hidden');
+            giveUp.classList.add('is-hidden');
+            var maxTime = homerender.maxFocusTime;
+            homerender.createInterval(0);
+            homerender.renderCounter(maxTime);
+            clearInterval(homerender.cancelInterval);
+            clearTimeout(homerender.cancelTimeout);
         }
     },
 
@@ -304,21 +448,47 @@ var homerender = {
             giveUp.classList.add('is-hidden');
             var maxTime = homerender.maxFocusTime;
             homerender.createInterval(0);
-            homerender.decreaseBee();
+            if (homerender.tab == 'beefocus') {
+                homerender.decreaseBee();
+            }
             homerender.renderCounter(maxTime);
         }
     },
+
+    renderTotalFocusTime: function (callback) {
+        let quoteContainer = document.getElementById('quoteMessage');
+        var totalFocusTime = homerender.getTotalFocusTime();
+        var currentDate = shinobi.util.getCurrentDate();
+        if (totalFocusTime.hasOwnProperty(currentDate) && !homerender.running) {
+            var totalMinute = totalFocusTime[currentDate] / 1000 / 60;
+            var hour = Math.floor(totalMinute / (60));
+            var second = (totalMinute - hour * 60);
+
+            quoteContainer.innerHTML = `Bravo! You have focused ${hour} hours ${second} mins today`;
+        } else {
+            if (callback) {
+                callback()
+            }
+        }
+    },
+
+
 
     addEventChangeQuote: function () {
         let quoteList = homerender.quoteList;
         let quoteContainer = document.getElementById('quoteMessage');
         quoteContainer.innerHTML = quoteList[0];
 
-        setInterval(function () {
-            var currentQuoteIndex = quoteList.indexOf(quoteContainer.innerHTML);
-            quoteContainer.innerHTML = (currentQuoteIndex + 1 < quoteList.length)
-                ? quoteList[currentQuoteIndex + 1]
-                : quoteList[0];
+        homerender.renderTotalFocusTime();
+        clearInterval(homerender.changeQuoteInterval);
+        homerender.changeQuoteInterval = setInterval(function () {
+            homerender.renderTotalFocusTime(function () {
+                var currentQuoteIndex = quoteList.indexOf(quoteContainer.innerHTML);
+                quoteContainer.innerHTML = (currentQuoteIndex + 1 < quoteList.length)
+                    ? quoteList[currentQuoteIndex + 1]
+                    : quoteList[0];
+            });
+
         }, homerender.quoteChangeInterval);
 
     },
