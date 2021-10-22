@@ -62,6 +62,12 @@ var homerender = {
                     if (isChangeTab) {
                         container.querySelector('.give-up-button').click();
                         container.setAttribute('data-tab', tab.dataset.tab);
+                        homerender.tab = tab.dataset.tab;
+                        homerender.renderCounter(
+                            (homerender.maxFocusTime % homerender.increaseBeeFocusTime == 0)
+                                ? homerender.maxFocusTime
+                                : homerender.increaseBeeFocusTime
+                        );
                         tabs.forEach(function (tabItem) {
                             if (tab == tabItem) {
                                 tabItem.classList.add('is-primary');
@@ -79,9 +85,16 @@ var homerender = {
     addEventChooseTimePeriod: function () {
         var container = document.getElementById('counter');
         var modal = document.getElementById('chooseMaxTimeModal');
+        var modal1 = document.getElementById('chooseBreakModal');
+
         container.onclick = function () {
             if (!homerender.running) {
-                modal.classList.add('is-active');
+                if (homerender.tab == 'beefocus') {
+                    modal.classList.add('is-active');
+                } else {
+                    modal1.classList.add('is-active');
+                    modal1.querySelector('.minute').focus();
+                }
             }
         }
 
@@ -95,6 +108,31 @@ var homerender = {
 
             }
         })
+
+        //add event time setting
+        var minutes = modal1.querySelector('.minute');
+        var second = modal1.querySelector('.second');
+        var buttonTimeSetting = modal1.querySelector('.save-time-setting-button');
+        buttonTimeSetting.onclick = function () {
+
+
+            var minutesValue = Number(minutes.value.trim());
+            var secondValue = Number(second.value.trim());
+            if (minutesValue != '' && secondValue != '' ||
+                minutesValue >= 0 && secondValue >= 0 && secondValue <= 59 &&
+                !(minutesValue == 0 && secondValue == 0)
+            ) {
+                var maxTime = (minutesValue * 60 + secondValue) * 1000;
+                homerender.renderCounter(maxTime);
+                modal1.classList.remove('is-active');
+
+            } else {
+
+                console.log(minutesValue, secondValue);
+                alert('Time input invalid!')
+            }
+        }
+
     },
 
     addEventFilterTask: function () {
@@ -411,8 +449,9 @@ var homerender = {
         let start = document.querySelector('.start-button');
         let cancel = document.querySelector('.cancel-button');
         let giveUp = document.querySelector('.give-up-button');
-        let cancelInterval = 10 * 1000;
         start.onclick = function () {
+
+            let cancelInterval = (homerender.tab == 'beefocus') ? 10 * 1000 : 0;
             let cancelCurrentInterval = cancelInterval;
             start.classList.add('is-hidden');
             cancel.classList.remove('is-hidden');
@@ -459,15 +498,28 @@ var homerender = {
         let giveUp = document.querySelector('.give-up-button');
         let cancel = document.querySelector('.cancel-button');
         giveUp.onclick = function () {
-            start.classList.remove('is-hidden');
-            giveUp.classList.add('is-hidden');
-            cancel.classList.add('is-hidden');
+
             var maxTime = homerender.maxFocusTime;
             if (homerender.tab == 'beefocus' && homerender.running) {
-                homerender.decreaseBee();
+                var value = confirm('Are you sure to kill me?');
+                if (value) {
+                    homerender.decreaseBee();
+                    homerender.createInterval(0);
+                    homerender.renderCounter(maxTime);
+                    start.classList.remove('is-hidden');
+                    giveUp.classList.add('is-hidden');
+                    cancel.classList.add('is-hidden');
+                }
+
+            } else {
+                homerender.createInterval(0);
+                homerender.renderCounter(maxTime);
+                start.classList.remove('is-hidden');
+                giveUp.classList.add('is-hidden');
+                cancel.classList.add('is-hidden');
             }
-            homerender.createInterval(0);
-            homerender.renderCounter(maxTime);
+
+
         }
     },
 

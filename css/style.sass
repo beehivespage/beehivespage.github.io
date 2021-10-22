@@ -148,7 +148,7 @@ body
                 >.message
                     visibility: hidden
 
-.start-button,.give-up-button,.cancel-button, .time-period-button, .logout-button,
+.start-button,.give-up-button,.cancel-button, .time-period-button, .logout-button,.save-time-setting-button
     border: none
     box-shadow: rgba(0, 0, 0,0.15) 2.4px 2.4px 3.2px
     border-radius: 10px
@@ -300,3 +300,33 @@ body
     &.is-active
         display: block
         animation: dynamicBee 5s ease-in forwards, opacity 2s ease-in 5s forwards
+
+.time-setting-container
+    display: block !important
+    padding: 2rem 0
+    .time
+        display: flex
+        justify-content: center
+        margin-bottom: 1rem
+        .control
+            .input
+                background: transparent
+                border: none
+                color: white
+                font-size: 5rem
+                width: 15rem
+                padding: 0
+                height: 5rem
+                box-shadow: none
+                -moz-appearance: textfield
+                &::-webkit-outer-spin-button, &::-webkit-inner-spin-button
+                    -webkit-appearance: none
+                    margin: 0
+            &:first-child
+                .input
+                    text-align: right
+                + .colon
+                    font-size: 5rem
+                    line-height: 4rem
+                    color: white
+

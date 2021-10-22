@@ -225,6 +225,38 @@
         </div>
     </div>
 
+    <div id="chooseBreakModal" class="modal">
+        <div class="modal-background"></div>
+        <div class="modal-card">
+            <header class="modal-card-head">
+                <p class="modal-card-title">Time setting</p>
+                <button class="delete" aria-label="close"></button>
+            </header>
+            <section class="modal-card-body">
+                <div
+                    class="time-setting-container columns is-multiline has-text-centered">
+                    <div class="time">
+                        <div class="control">
+                            <input type="number" class="minute input is-large"
+                                min="0" placeholder="Min" value="60" autofocus>
+                        </div>
+                        <div class="colon">:</div>
+                        <div class="control">
+                            <input type="number" class="second input is-large"
+                                min="0" max="59" placeholder="Sec" value="00">
+                        </div>
+
+                    </div>
+                    <div class="field">
+                        <div class="control">
+                            <a class="button save-time-setting-button">OK</a>
+                        </div>
+                    </div>
+                </div>
+            </section>
+        </div>
+    </div>
+
 
     <script>
         document.addEventListener('DOMContentLoaded', function () {
