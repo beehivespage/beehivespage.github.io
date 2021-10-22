@@ -495,7 +495,9 @@ var homerender = {
     addEventChangeQuote: function () {
         let quoteList = homerender.quoteList;
         let quoteContainer = document.getElementById('quoteMessage');
-        // quoteContainer.innerHTML = quoteList[0];
+        if(homerender.running){
+            quoteContainer.innerHTML = quoteList[0];
+        }
         homerender.renderTotalFocusTime();
         clearInterval(homerender.changeQuoteInterval);
         homerender.changeQuoteInterval = setInterval(function () {
