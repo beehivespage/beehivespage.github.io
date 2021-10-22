@@ -432,6 +432,7 @@ var homerender = {
             homerender.cancelTimeout = setTimeout(function () {
                 cancel.classList.add('is-hidden');
                 giveUp.classList.remove('is-hidden');
+                giveUp.innerHTML = (homerender.running == 'beefocus') ? 'Give Up' : 'Stop';
             }, cancelInterval);
             homerender.createInterval((homerender.maxFocusTime == 0) ? 60 * 60 * 1000 : homerender.maxFocusTime);
         }
@@ -456,9 +457,11 @@ var homerender = {
     addEventGiveUpButton: function () {
         let start = document.querySelector('.start-button');
         let giveUp = document.querySelector('.give-up-button');
+        let cancel = document.querySelector('.cancel-button');
         giveUp.onclick = function () {
             start.classList.remove('is-hidden');
             giveUp.classList.add('is-hidden');
+            cancel.classList.add('is-hidden');
             var maxTime = homerender.maxFocusTime;
             homerender.createInterval(0);
             if (homerender.tab == 'beefocus' && homerender.running) {
@@ -495,7 +498,7 @@ var homerender = {
     addEventChangeQuote: function () {
         let quoteList = homerender.quoteList;
         let quoteContainer = document.getElementById('quoteMessage');
-        if(homerender.running){
+        if (homerender.running) {
             quoteContainer.innerHTML = quoteList[0];
         }
         homerender.renderTotalFocusTime();
