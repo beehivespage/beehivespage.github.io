@@ -324,7 +324,7 @@ var homerender = {
                         homerender.increaseBee();
                     }
                 }
-            }, 1);
+            }, 1000);
         }
         homerender.addEventChangeQuote();
     },
