@@ -432,7 +432,7 @@ var homerender = {
             homerender.cancelTimeout = setTimeout(function () {
                 cancel.classList.add('is-hidden');
                 giveUp.classList.remove('is-hidden');
-                giveUp.innerHTML = (homerender.running == 'beefocus') ? 'Give Up' : 'Stop';
+                giveUp.innerHTML = (homerender.tab == 'beefocus') ? 'Give Up' : 'Stop';
             }, cancelInterval);
             homerender.createInterval((homerender.maxFocusTime == 0) ? 60 * 60 * 1000 : homerender.maxFocusTime);
         }
@@ -463,10 +463,10 @@ var homerender = {
             giveUp.classList.add('is-hidden');
             cancel.classList.add('is-hidden');
             var maxTime = homerender.maxFocusTime;
-            homerender.createInterval(0);
             if (homerender.tab == 'beefocus' && homerender.running) {
                 homerender.decreaseBee();
             }
+            homerender.createInterval(0);
             homerender.renderCounter(maxTime);
         }
     },
