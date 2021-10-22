@@ -1,7 +1,7 @@
 var homerender = {
     quoteList: ['Keep up your work!', 'Stop Phubbing!', 'You can do it!', 'You’re almost there!', 'Please keep feeding me!'],
     totalFocusTime: {},
-    quoteChangeInterval: 30000,
+    quoteChangeInterval: 15 * 1000,
     increaseBeeFocusTime: 30 * 60 * 1000,
     increaseBeeCount: 1,
     decreaseBeeCount: 2,
@@ -13,7 +13,7 @@ var homerender = {
     liveBee: 0,
     running: false,
     tab: 'beefocus',
-    dynamicBeeIntervalTime: 60 * 1000,
+    dynamicBeeIntervalTime: 5 * 1000,
     init: function () {
         homerender.addEventChangeQuote();
         homerender.addEventStartButton();
@@ -324,7 +324,7 @@ var homerender = {
                         homerender.increaseBee();
                     }
                 }
-            }, 1000);
+            }, 1);
         }
         homerender.addEventChangeQuote();
     },
@@ -448,7 +448,7 @@ var homerender = {
             giveUp.classList.add('is-hidden');
             var maxTime = homerender.maxFocusTime;
             homerender.createInterval(0);
-            if (homerender.tab == 'beefocus') {
+            if (homerender.tab == 'beefocus' && homerender.running) {
                 homerender.decreaseBee();
             }
             homerender.renderCounter(maxTime);

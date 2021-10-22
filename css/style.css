@@ -503,7 +503,7 @@ body {
 
 .dynamic-bee.is-active {
   display: block;
-  -webkit-animation: dynamicBee 60s ease-in forwards, opacity 2s ease-in 60s forwards;
-          animation: dynamicBee 60s ease-in forwards, opacity 2s ease-in 60s forwards;
+  -webkit-animation: dynamicBee 5s ease-in forwards, opacity 2s ease-in 5s forwards;
+          animation: dynamicBee 5s ease-in forwards, opacity 2s ease-in 5s forwards;
 }
 /*# sourceMappingURL=style.css.map */
