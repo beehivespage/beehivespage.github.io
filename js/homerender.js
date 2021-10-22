@@ -27,7 +27,16 @@ var homerender = {
         homerender.renderBee();
         homerender.addEventChooseTimePeriod();
         homerender.addEventChangeTab();
+        homerender.addEventCloseWindow();
 
+    },
+
+    addEventCloseWindow: function () {
+        window.onbeforeunload = function () {
+            if (homerender.running) {
+                return 'Do you want to leave the site?';
+            }
+        }
     },
 
     addEventLogoutButton: function () {
@@ -267,10 +276,8 @@ var homerender = {
     },
 
     addEventAddTask: function () {
-        var container = document.getElementById('addTaskContainer');
-        var input = container.querySelector('.input');
-        var button = container.querySelector('.button');
-        button.onclick = function () {
+
+        function addTask() {
             if (input.value.trim() == '') {
                 alert('Task name is empty!');
             } else {
@@ -284,6 +291,11 @@ var homerender = {
                 homerender.setTaskList(homerender.taskList);
             }
         }
+        var container = document.getElementById('addTaskContainer');
+        var input = container.querySelector('.input');
+        var button = container.querySelector('.button');
+        shinobi.util.addEventEnter(input, addTask)
+        button.onclick = addTask;
     },
 
     playNotification: function () {
@@ -306,6 +318,7 @@ var homerender = {
             homerender.running = false;
         } else {
             homerender.running = true;
+            homerender.playNotification();
             homerender.interval = setInterval(function () {
                 if (homerender.currentFocusTime < tick) {
                     homerender.running = false;
@@ -459,12 +472,17 @@ var homerender = {
         let quoteContainer = document.getElementById('quoteMessage');
         var totalFocusTime = homerender.getTotalFocusTime();
         var currentDate = shinobi.util.getCurrentDate();
-        if (totalFocusTime.hasOwnProperty(currentDate) && !homerender.running) {
-            var totalMinute = totalFocusTime[currentDate] / 1000 / 60;
-            var hour = Math.floor(totalMinute / (60));
-            var second = (totalMinute - hour * 60);
+        if (!homerender.running) {
+            if (totalFocusTime.hasOwnProperty(currentDate)) {
+                var totalMinute = totalFocusTime[currentDate] / 1000 / 60;
+                var hour = Math.floor(totalMinute / (60));
+                var second = (totalMinute - hour * 60);
+            } else {
+                hour = 0;
+                second = 0;
+            }
 
-            quoteContainer.innerHTML = `Bravo! You have focused ${hour} hours ${second} mins today`;
+            quoteContainer.innerHTML = `You have focused ${hour} hours ${second} mins today`;
         } else {
             if (callback) {
                 callback()
@@ -477,8 +495,7 @@ var homerender = {
     addEventChangeQuote: function () {
         let quoteList = homerender.quoteList;
         let quoteContainer = document.getElementById('quoteMessage');
-        quoteContainer.innerHTML = quoteList[0];
-
+        // quoteContainer.innerHTML = quoteList[0];
         homerender.renderTotalFocusTime();
         clearInterval(homerender.changeQuoteInterval);
         homerender.changeQuoteInterval = setInterval(function () {
